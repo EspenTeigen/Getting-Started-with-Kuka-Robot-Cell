@@ -24,7 +24,15 @@
 \newpage
 
 
-\section{Overview of the Robot-cell and it's parts}
+\section{Robot System diagram}
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[scale=0.3]{"Pictures/Chart".png}
+        \caption{System overview. It is not how everything is wired, but conceptual how it connects}
+    \end{figure}
+
+\newpage
+\section{A brief overview of the Robot-cell and it's parts}
     \subsection{Manipulator}
     
      \begin{figure}[!h]
@@ -34,11 +42,15 @@
     \end{figure}
     
     
-    Ahh... The manipulator, the part that everyone thinks is the robot, but no. A robot consists of a controller, effector and a manipulator, but I am getting ahead of myself.
+    Ahh... The manipulator, the part that everyone thinks is the robot, but, no. A robot consists of a controller, effector and a manipulator, but I am getting ahead of myself.
     \\\\
     The manipulator is the part that delivers the movement of the tool. In it self, it is just a collection of motors and joints, or as the robotics companies like to say "jointed-arm kinematic system". 
+    \\\\
+    The manipulator has four pneumatic(input/outputs) near the end effector. It has an eight-pin M12 contact on the head, where I have used four of the pins on a force torque sensor.  
+    
+   
     \newpage
-    This manipulator is:
+    \textcolor{blue}{\textbf{This manipulator is:}
     \begin{itemize}
         \item 6-axis
         \item Capable of moving 3kg of mass(included tool)
@@ -50,20 +62,48 @@
         \item What we would call an assembly robot
         \item Really, really fast(See KR 3 R540 Operating Instructions page 12)
         \item In my opinion, really good looking
-    \end{itemize}
-    
+    \end{itemize}}
     \\\\
-    It is not:
+    \textcolor{red}{\textbf{It is not:}
     \begin{itemize}
         \item A pot of petunias falling to the ground
-        \item A time traveling  TARDIS\textsuperscript{TM}
-        \item A toy. When the manipulator is moving at full speed, it has the power to do some major damage to both humans and equipment. Never try to override the safety system, and keep body parts away from the robot cell. Try to avoid standing in front of the robot cell when the robot system are in operation, if you are not sure about how the robot is moving. 
+        \item \textbf{A toy. When the manipulator is moving at full speed, it has the power to do some major damage to both humans and equipment. Never try to override the safety system, and keep body parts away from the robot cell. Try to avoid standing in front of the robot cell when the robot system are in operation, if you are not sure about how the robot is moving}
+         \item A TARDIS\textsuperscript{TM} traveling in wibbly wobbly          timey wimey space. 
+    \end{itemize}}
+    \\\\
+     \textbf{In the back of the manipulator you will find:}
+    \begin{itemize}
+        \item Air 1-4
+        \item X32, this connector is used for mastering(calibrating) the robot
+        \item X76, this connector is used for transferring power and data to the connector on the head of the manipulator
+        \item One thick cable(X20), used for transferring power to the motors
+        \item One thin cable(X21) used for data communication from the controller to the robot. 
+        \item One ground wire, used for equipotential bonding with the controller. 
     \end{itemize}
-   
     
+  \newpage
+  
         \subsubsection{Force-torque sensor}
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.2]{"Pictures/FT300".png}
+            \caption{Robotiq FT-300}
+        \end{figure}
+        
+        As the section name implies, this is a force-torque sensor. It gives us 3-axis of force, and 3-axis of torque. 
+        
+          \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.5]{"Pictures/FT300-diagram".png}
+            \caption{Axis of sensitivity}
+        \end{figure}
+        This gives us the posibility to give the robot sensitivity to it's environment. The FT-300 is placed between the manipulator and end-effector.
+        \\\\
+        This sensor is sending it's data to a PLC, that transfers the data to the robot system.
+        
+        \newpage
+        
         \subsubsection{Pneumatic's}
-
     \subsection{Robot Controller}
         \subsubsection{SmartPad}
         \subsubsection{PC-interface}
