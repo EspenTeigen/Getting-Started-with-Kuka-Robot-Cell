@@ -24,7 +24,7 @@
 \newpage
 
 
-\section{Robot System diagram}
+\section{Robot System Diagram}
     \begin{figure}[!h]
         \centering
         \includegraphics[scale=0.3]{"Pictures/Chart".png}
@@ -42,7 +42,7 @@
     \end{figure}
     
     
-    Ahh... The manipulator, the part that everyone thinks is the robot, but, no. A robot consists of a controller, effector and a manipulator, but I am getting ahead of myself.
+    Ahh... The manipulator, the part that everyone thinks is the robot, but, no. A robot consists of a controller, end-effector and a manipulator, but I am getting ahead of myself.
     \\\\
     The manipulator is the part that delivers the movement of the tool. In it self, it is just a collection of motors and joints, or as the robotics companies like to say "jointed-arm kinematic system". 
     \\\\
@@ -97,14 +97,43 @@
             \includegraphics[scale=0.5]{"Pictures/FT300-diagram".png}
             \caption{Axis of sensitivity}
         \end{figure}
-        This gives us the posibility to give the robot sensitivity to it's environment. The FT-300 is placed between the manipulator and end-effector.
+        This gives us the possibility to give the robot sensitivity to it's environment. The FT-300 is placed between the manipulator and end-effector.
         \\\\
-        This sensor is sending it's data to a PLC, that transfers the data to the robot system.
-        
-        \newpage
+        This sensor is sending it's data via modbus to a PLC, that transfers the data to the robot system.
+       
+\newpage
         
         \subsubsection{Pneumatic's}
-    \subsection{Robot Controller}
+        The pneumatics on the robot is made of three part. 
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.5]{"Pictures/stanley fatmax OL244".jpg}
+            \caption{An Stanley Fatmax OL244 air compressor with pressure regulator}
+        \end{figure}
+        
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.3]{"Pictures/festo".jpg}
+            \caption{A 5/2 mono-stable solenoid valve}
+        \end{figure}
+        
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.5]{"Pictures/cylinder".jpg}
+            \caption{A SMC CD55N12 pneumatic cylinder}
+        \end{figure}
+        
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.5]{"Pictures/air-flow valve".jpg}
+            \caption{And two SMC air-flow valves}
+        \end{figure}
+        
+\newpage
+        This setup makes it possible to controll 
+        
+        
+        \subsection{Robot Controller}
         \subsubsection{SmartPad}
         \subsubsection{PC-interface}
         \paragraph{Software}
