@@ -97,7 +97,7 @@
             \includegraphics[scale=0.5]{"Pictures/FT300-diagram".png}
             \caption{Axis of sensitivity}
         \end{figure}
-        This gives us the possibility to give the robot sensitivity to it's environment. The FT-300 is placed between the manipulator and end-effector.
+        This gives us the possibility to give the robot a feeling of touch. The FT-300 is placed between the manipulator and end-effector.
         \\\\
         This sensor is sending it's data via modbus to a PLC, that transfers the data to the robot system.
        
@@ -126,20 +126,34 @@
         \begin{figure}[!h]
             \centering
             \includegraphics[scale=0.5]{"Pictures/air-flow valve".jpg}
-            \caption{And two SMC air-flow valves}
+            \caption{And two SMC air-flow valves(not to scale, its really small)}
         \end{figure}
         
 \newpage
-        This setup makes it possible to controll 
+
+        This setup makes it possible to control the pneumatic valve with digital output 0 from the robot controller. Boolean TRUE extends the cylinder, and boolean FALSE retracts the cylinder. 
+        \\\\
+        The force of the cylinder is controlled with the pressure regulator on the air compressor. 
+        \\\\
+        The speed of the cylinder is controlled with the air-flow valves on the back of the manipulator. The one marked +, controls the retraction speed, and the other one controls the extension speed.
+        \\\\
+          Notice that the air-flow regulators has a check valve that lets air inn to the cylinder. This is because we want to restrict the air-flow out from the cylinder, and not in to it. If you restrict the airflow in, the cylinder will move like you are playing counter strike on a machine with 56k mode, it will lag. 
         
-        
+        \begin{figure}
+            \centering
+            \includegraphics[scale=1]{"Pictures/pneumatic schematic".png}
+            \caption{Pneumatic schematic for control of pneumatic cylinder}
+        \end{figure}
+    
+\newpage
+
         \subsection{Robot Controller}
         \subsubsection{SmartPad}
         \subsubsection{PC-interface}
         \paragraph{Software}
         \subsubsection{EtherCAT}
         
-
+\newpage
 
     \subsection{Control cabinet}
         \subsubsection{Front panel}
@@ -147,7 +161,9 @@
         \paragraph{PC-interface}
         \paragraph{Software}
         \subsubsection{Pneumatic's}
-    
+
+\newpage
+
     \subsection{Safety}
         \subsubsection{Do's and dont's }
         \subsubsection{Emergency stop's}
