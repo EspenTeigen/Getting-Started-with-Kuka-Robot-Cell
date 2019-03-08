@@ -157,11 +157,22 @@
         
         The heart and nerve of the robot system. It is on this one you write you're program, do all the configurations and so on. It reads the rotary encoders on the manipulator, and send control-signals to it. It also handles communication with other robot-controllers, PLC's and computers. It can control servo drives, so on and so forth. If you want to find out more of what it can do, i suggest that you have a look in the documentation; KR C4 compact, Operating Instructions(You can find this on the KRC4 docs standard disk, or on kuka's download center.
         \\\\
-        This specific controller has some options that are important to mention. We have the KRC4 compact DC4 FSoE ECAT M/M X55 EN. That mean that this controller is equipped for use with EtherCAT-bus, and supports FSoE(Fail Safe over Ethernet).  X55 is the power connection to the master/master EtherCAT-bridge inside the controller. I'll describe this under the sub-section EtherCAT further down in the document.
+        This specific controller has some options that are important to mention. We have the KRC4 compact DC4 FSoE ECAT M/M X55 EN. That mean that this controller is equipped for use with EtherCAT-bus, and supports FSoE(Fail Safe over Ethernet)(made possible with Beckhoff EL6695-1001 Master/master EtherCAT-bridge).  X55 is the power connector to the EtherCAT-bridge inside the controller. I'll describe this under the sub-section EtherCAT further down in the document.
         
 \newpage
 
-        \subsubsection{SmartPad}
+        \subsubsection{Smart Pad}
+        
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.5]{"Pictures/smartpad".jpg}
+            \caption{Kuka Smart Pad}
+        \end{figure}
+        
+        The first line of interaction with the Kuka robot system. This is a touch pad with OK resolution and horrible touch interface(I suggest you use a Bluetooth keyboard and mouse if you are going to do a lot of work on it).
+        \\\\
+        But it shines when it comes to moving the robot manipulator. The 6-D mouse on the right side is actually nice to use when you get used to it. The interface is also quit intuitive(in certain areas). I will give a better description how to use it when i start rambling about starting the robot and programming.
+        
         \subsubsection{PC-interface}
         \paragraph{Software}
         \subsubsection{EtherCAT}
