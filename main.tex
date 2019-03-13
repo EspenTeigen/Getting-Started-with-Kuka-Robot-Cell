@@ -174,17 +174,50 @@
         But it shines when it comes to moving the robot manipulator. The 6-D mouse on the right side is actually nice to use when you get used to it. The interface is also quit intuitive(in certain areas). I will give a better description how to use it when i start rambling about starting the robot and programming.
         
         \subsubsection{PC-interface}
+       To connect a PC to the controller, connect to the PC port on the control cabinet below the manipulator using a ethernet cable. 
+        \\\\
+        USefull information about PC interface:
+        \begin{itemize}
+            \item Connect you're PC to the PC port on the cabinet
+            \item IP adresse of the controller: 172.31.1.147
+            \item Subnet mask:                  255.255.0.0
+            \item Default gateway:              0.0.0.0
+            \item IP adresse of the PLC: 172.31.1.11 
+        \end{itemize}
+        The PLC is another part of the system i will explain more about it later. 
         \paragraph{Software}
+         To do commissioning on the robot(add IO, modules etc.) and some programming of the robot, we use WorkVisual. It is a software made by Kuka, and are used for configuring robot cells. Usually, there is no need to use this software.
         \subsubsection{EtherCAT}
         
 \newpage
 
     \subsection{Control cabinet}
+    The control cabinet is the storage for all the electronics, and a pneumatic valve. Inside there is a PLC, the robot controllers IO, power supply, fuses, relays and an ethernet switch.
         \subsubsection{Front panel}
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.3]{"Pictures/cabinet_front".png}
+            \caption{Front panel of control cabinet}
+        \end{figure}
+        
+        \paragraph{Reset button}
+        The reset button is used to acknowledge External Emergency Stop warnings after the light grid or the emergency stop button on the side of the robot cell has bin triggered. It is also used to remove communication error when after the system has been turned of. 
+        
+        \paragraph{Main Power Switch}
+        This is used to turn of the power to the power supply, resulting in that everything is turned of. The only place with voltage in the system is on the input to the power switch.
+        
+        \paragraph{Communication interface}
+        \textbf{PC}: This is where you will connect you're PC. In the cabinet, the PC port is connected to a Phoenix firewall, that is used as a switch ATM. This switch is connected to the robot controller via X66 and to the programming interface on the PLC.
+        \\\\
+        \textbf{X65}: Is connected to X65 on the controller. This is is the IO's that the robot controller can control directly without the PLC.
+        
         \subsubsection{PLC}
         \paragraph{PC-interface}
         \paragraph{Software}
+        \paragraph{Safety-modules}
         \subsubsection{Pneumatic's}
+        \paragraph{Force-torque sensor}
+        \paragraph{Data transmission to and from controller}
 
 \newpage
 
@@ -193,5 +226,10 @@
         \subsubsection{Emergency stop's}
         \subsubsection{Light grid}
 
+\section{Getting started}
+    \subsection{Get everything connected}
+    \subsection{Powering up the system}
+    \paragraph{Problems resetting communication error warning on smartPad}
+    
 
 \end{document}
