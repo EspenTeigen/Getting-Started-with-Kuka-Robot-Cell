@@ -173,6 +173,8 @@
         \\\\
         But it shines when it comes to moving the robot manipulator. The 6-D mouse on the right side is actually nice to use when you get used to it. The interface is also quit intuitive(in certain areas). I will give a better description how to use it when i start rambling about starting the robot and programming.
         
+        \newpage
+        
         \subsubsection{PC-interface}
        To connect a PC to the controller, connect to the PC port on the control cabinet below the manipulator using a ethernet cable. 
         \\\\
@@ -187,11 +189,12 @@
         The PLC is another part of the system i will explain more about it later. 
         \paragraph{Software}
          To do commissioning on the robot(add IO, modules etc.) and some programming of the robot, we use WorkVisual. It is a software made by Kuka, and are used for configuring robot cells. Usually, there is no need to use this software.
+         
         \subsubsection{EtherCAT}
         
 \newpage
 
-    \subsection{Control cabinet}
+    \subsection{Control cabinet front}
     The control cabinet is the storage for all the electronics, and a pneumatic valve. Inside there is a PLC, the robot controllers IO, power supply, fuses, relays and an ethernet switch.
         \subsubsection{Front panel}
         \begin{figure}[!h]
@@ -207,12 +210,37 @@
         This is used to turn of the power to the power supply, resulting in that everything is turned of. The only place with voltage in the system is on the input to the power switch.
         
         \paragraph{Communication interface}
-        \textbf{PC}: This is where you will connect you're PC. In the cabinet, the PC port is connected to a Phoenix firewall, that is used as a switch ATM. This switch is connected to the robot controller via X66 and to the programming interface on the PLC.
+        \textbf{PC}: This is where you will connect you're PC. In the cabinet, the PC port is connected to a Phoenix firewall, that is used as a switch at the moment. This switch is connected to the robot controller via X66 and to the programming interface on the PLC.
         \\\\
         \textbf{X65}: Is connected to X65 on the controller. This is is the IO's that the robot controller can control directly without the PLC.
+        \\\\
+        \textbf{X66}: Is the PC interface to the controller.
+        \\\\
+        \textbf{X67.1} Is the communication port from the PLC to the robot controller. We have a Beckhoff CX9020 embedded PC with a soft PLC on it, that communicates with a EL6695-1001 etherCAT Master/Master-bridge inside the robot controller. All safety communication and regular communication goes through this ethernet cable.  
+        
+        \newpage
+        
+        \subsection{Inside the control cabinet }
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.2]{"Pictures/cabinet_inside".jpg}
+            \caption{Inside the control cabinet}
+        \end{figure}
+        
+        \begin{enumerate}
+        
+            \item The PLC, it handles all the safety, communication with robot controller and communication with the FT-300 sensor. 
+            \item The robots IO, these are directly controlled from the robot controller, and can be interfaced in a robto program. Output 0 is used for controlling pneumatic valve.
+            \item Ethernet firewall/switch that also is enabled for communication over mobile network.
+            \item 5/2 pneumatic valve.
+            \item 24V-DC, 10A power supply.
+            \item: Fuses; from left to right: PLC, Robot controller IO, Ethernet switch, light grid, 230V mains, FT-300. 
+            \item: Relays, the leftmost is used for the 5/2 valve, the second one is not used.
+        \end{enumerate}
+        
+        \newpage
         
         \subsubsection{PLC}
-        \paragraph{PC-interface}
         \paragraph{Software}
         \paragraph{Safety-modules}
         \subsubsection{Pneumatic's}
