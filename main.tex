@@ -194,6 +194,8 @@
         Our controller is configured with the etherCAT and Fail Safe over EtherCAT(FSoE) option. EtherCAT is a real-time ethernet based industrial communication protocol, and is standardized in IEC 61158. It uses standard IEEE 802.3 ethernet as the physical layer without modification. 
         \\\\
         FSoE is a communication protocol that gives a SIL 3 safety system. This simplifies our connections, since we only need an ethernet-cable to enable all our safety related stuff like; light grid and emergency stop. 
+        \\\\
+        On the controller, you will find a plug without a cable that is plugged in to the X55-port. This is not a dummy plug, it is crucial. Inside the plug, there are some jumper-wires. They are put there to power the EtherCAT-bridge from an internal 24V supply. If this plug is removed, the safety communication will fail, and the robot won't move. There is a picture of how it is wired in the system design picture you can find on my Github under Kuka-KR-C4-commissioning.
         
         
 \newpage
