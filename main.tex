@@ -68,7 +68,7 @@
     \begin{itemize}
         \item A pot of petunias falling to the ground
         \item \textbf{A toy. When the manipulator is moving at full speed, it has the power to do some major damage to both humans and equipment. Never try to override the safety system, and keep body parts away from the robot cell. Try to avoid standing in front of the robot cell when the robot system are in operation, if you are not sure about how the robot is moving}
-         \item A TARDIS\textsuperscript{TM} traveling in wibbly wobbly          timey wimey space. 
+         \item A TARDIS\textsuperscript{TM} traveling in wibbly wobbly timey wimey space. 
     \end{itemize}}
 
      \textbf{In the back of the manipulator you will find:}
@@ -380,10 +380,40 @@
         \\\\
         \textbf{\textcolor{red}{In a chain of safety-equipment, there should never be non-safety equipment, that includes relays, IO's and switches}}
         
+        \newpage 
+        
 \section{Getting started}
     \subsection{Get everything connected}
-    \subsection{Powering up the system}
-    \paragraph{Problems resetting communication error warning on smartPad}
+    \begin{itemize}
+        \item Air from compressor(If pneumatic cylinder is used).
+        \item Power to cabinet.
+        \item Power to robot controller.
+        \item power and data cable from controller to manipulator.
+        \item Data cables: PC, X65, X66 and X67.1 is connected to appropriate places, PC can be exluded if no computer is being used.
+        \item smartPad is connected to controller
+        \item If computer is being used: IP-address and subnet mask is in correct range.
+    \end{itemize}
     
+    \subsection{Powering up the system}
+    \begin{enumerate}
+        \item Turn power on cabinet on robot cell first. Wait 15-30 seconds so the PLC can boot up.
+        \item Turn power on robot controller.
+        \item Get coffee while controller is booting.
+        \item Push reset button.
+        \item Push and release emergency stop button on robot cell.
+        \item Push reset button again.
+        \item If communication error KRC4 primary error sustains, jump to(not literary) \textbf{Problems resetting communication error warning on smartPad} 
+    \end{enumerate}
+    \subsubsection{Problems resetting communication error warning on smartPad}
+    At the time of writing this, we do not have a license for some of the library's used on the TwinCat 3 system. But Beckhoff has a one week free license-trial, and that is what i have been using. To renew the license's, open the TwinCAT project kuka\_robot\_project\_twinsafe\_modbus.sln(you can find this on my github page). If changes has been done on the project after my departure, use that project instead. 
+    \\\\\
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[width=\textwidth]{Pictures/twincat_upload_installation.png}
+        \caption{Push the upload button, pretty please}
+        \end{figure}
+    By pushing the button, you will download the project to the embedded PC, if you're licenses is old and musky, TwinCAT will ask if you want to renew the license, follow the instructions. 
+    \\\\
+    After the download is done, push the reset-button on the cabinet. It should hopefully remove the error, and all you have to do is acknowledge that the error has been there.  
 
 \end{document}
