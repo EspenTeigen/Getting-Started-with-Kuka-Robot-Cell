@@ -63,14 +63,14 @@
         \item Really, really fast(See KR 3 R540 Operating Instructions page 12)
         \item In my opinion, really good looking
     \end{itemize}}
-    \\\\
+
     \textcolor{red}{\textbf{It is not:}
     \begin{itemize}
         \item A pot of petunias falling to the ground
         \item \textbf{A toy. When the manipulator is moving at full speed, it has the power to do some major damage to both humans and equipment. Never try to override the safety system, and keep body parts away from the robot cell. Try to avoid standing in front of the robot cell when the robot system are in operation, if you are not sure about how the robot is moving}
          \item A TARDIS\textsuperscript{TM} traveling in wibbly wobbly          timey wimey space. 
     \end{itemize}}
-    \\\\
+
      \textbf{In the back of the manipulator you will find:}
     \begin{itemize}
         \item Air 1-4
@@ -191,10 +191,14 @@
          To do commissioning on the robot(add IO, modules etc.) and some programming of the robot, we use WorkVisual. It is a software made by Kuka, and are used for configuring robot cells. Usually, there is no need to use this software.
          
         \subsubsection{EtherCAT}
+        Our controller is configured with the etherCAT and Fail Safe over EtherCAT(FSoE) option. EtherCAT is a real-time ethernet based industrial communication protocol, and is standardized in IEC 61158. It uses standard IEEE 802.3 ethernet as the physical layer without modification. 
+        \\\\
+        FSoE is a communication protocol that gives a SIL 3 safety system. This simplifies our connections, since we only need an ethernet-cable to enable all our safety related stuff like; light grid and emergency stop. 
+        
         
 \newpage
 
-    \subsection{Control cabinet front}
+    \subsection{Control cabinet}
     The control cabinet is the storage for all the electronics, and a pneumatic valve. Inside there is a PLC, the robot controllers IO, power supply, fuses, relays and an ethernet switch.
         \subsubsection{Front panel}
         \begin{figure}[!h]
@@ -234,26 +238,131 @@
             \item Ethernet firewall/switch that also is enabled for communication over mobile network.
             \item 5/2 pneumatic valve.
             \item 24V-DC, 10A power supply.
-            \item: Fuses; from left to right: PLC, Robot controller IO, Ethernet switch, light grid, 230V mains, FT-300. 
-            \item: Relays, the leftmost is used for the 5/2 valve, the second one is not used.
+            \item Fuses; from left to right: PLC, Robot controller IO, Ethernet switch, light grid, 230V mains, FT-300. 
+            \item Relays, the leftmost is used for the 5/2 valve, the second one is not used.
         \end{enumerate}
         
         \newpage
         
-        \subsubsection{PLC}
+        \subsubsection{Embedded PC, PLC, Safety, IO}
+        
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale = 0.3]{"Pictures/PLC".png}
+            \caption{Embedded PC with IO's}
+        \end{figure}
+        
+        The embedded PC handles PLC, safety and IO connections. It sends FSoE parameters to the robot controller, and also values from the force torque sensor.  
+    
+        \begin{itemize}
+            \item The ethernet-plug on the left in the picture is the programming interface of the embedded PC
+            \item The first yellow block, is safety-inputs(EL1904). On the top emergency stop and reset is connected, and in the bottom the light grid is connected with OSSD( Output Signal Switching Device, google it). 
+            \item The second and third yellow block, is actually one block, and is safety outputs(EL2904). It is not in use at the moment, but is put there for further development. 
+            \item The fourth block is the safety PLC, and it handles all the safety logic. There are no connections to ut, because everything is handled by the internal bus.
+            \item The fifth bloc(The one with two RS485-plugs) is used to interface the FT-300 sensor.
+            \item And the last one(EK1110) is an etherCAT-coupler, and is connected to the X67.1 port on the robot controller. 
+        \end{itemize}
+        
+        \newpage
+        
         \paragraph{Software}
-        \paragraph{Safety-modules}
-        \subsubsection{Pneumatic's}
-        \paragraph{Force-torque sensor}
+        The software used for programming of the embedded PC is TwinCAT 3 XAE. It is a visual studio ad-on, and should be fairly intuitive to use for people with knowledge of the software. Of course, this does not mean that the ad-on is easy to use. I'll go further into the use of the software later. 
+        
+        \subsubsection{Robot IO}
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.4]{"Pictures/IO".png}
+            \caption{The robot's IO}
+        \end{figure}
+        
+        The ethernet-cable on the left is connected to X67.1 and is on the robot controller's internal etherCAT bus. This means, that if more IO or other modules that the robot is to be needed, they can be added on to this one, and only need to be configured in Work Visual if Kuka has a DTM-file(device description file) for the module(otherwise you have to add the module on to the embedded PC and configure the communication, see my document \textbf{Sending-data-between-Beckhoff-PLC-and-Kuka-Robot-Controller-KRC4-} on my github page)..
+        
+        \newpage
+        
+        \paragraph{Robotiq Force-torque sensor}
+        You can read about how the seonor works her:\\\\ https://robotiq.com/products/ft-300-force-torque-sensor?ref=nav\_product\_new\_button
+        \\\\
+        The sensor is connected to the EL6022 on the embedded PC, and uses ModBUS RTU as communication-protocoll. The embedded PC reads the 6 values and transfers it to the robot controller. On the controller you can find these values with the global names:
+        \begin{itemize}
+            \item ForceX
+            \item ForceY
+            \item ForceZ
+            \item MomentX
+            \item MomentY
+            \item MomentZ
+        \end{itemize}
+        
+        On the PLC inside the embedded PC(you can find it in TwinCAT3), there is a program called MAIN that handles the reading and sending of values to the controller. 
+        
         \paragraph{Data transmission to and from controller}
+        Se document \textbf{Sending-data-between-Beckhoff-PLC-and-Kuka-Robot-Controller-KRC4} on my github page. 
 
 \newpage
 
-    \subsection{Safety}
-        \subsubsection{Do's and dont's }
-        \subsubsection{Emergency stop's}
-        \subsubsection{Light grid}
+    \subsection{Calibration of robot}
+        To give the highest position repeatably, you have to do something Kuka calls "mastering". Mastering is done with the aid of a Micro electronic mastering device(MEMD). It should always be located in the cabinet on the robot lab(it is quite expensive, so be careful with it). 
+        
+        \textbf{bilde her}
+        
+        There is no need to do mastering often, 1-2 times a year should suffice, exceptions are if the manipulator has crashes or if the robot cell has been moved, and you need the high precision. 
+        \\\\
+        You can find videos about mastering on YouTube, so i will not use to much time on it. It is easy to do. 
+        
+        \newpage
 
+    \subsection{Safety and maintenance}
+        \subsubsection{Do's }
+        \textbf{Every time the robot is used}
+        \begin{itemize}
+            \item That there are no loose parts that can fall off during operation.
+            \item Listen for sounds that should not be there.
+            \item Make sure the people using the robot is properly trained.
+            \item That there is no cat's inside the control cabinet(those pesky critters can get in anywhere)
+            \item When finished, turn off robot controller from the teach pendant, and not the power button.
+        \end{itemize}
+        
+        \textbf{Once a month}
+        \begin{itemize}
+            \item Check that there is no damage to the wires and hoses.
+            \item Check that the bolts on the base of the manipulator is tight. 
+            \item Check that the bolts on the light grid is tight.
+            \item Check that the bolts on the plexi glass is tight.
+            \item Look at my masterpiece in awe.
+        \end{itemize}
+        
+        \textbf{Every sixth month}
+        \begin{itemize}
+            \item Master the robot.
+            \item Remove covers on manipulator and check that the belts are intact and tight, remove dust.
+            \item Open controller and remove dust. 
+            \item Check oil level in compressor.
+            \item Test that the safety equipment work properly.
+        \end{itemize}
+        
+        \subsubsection{Emergency stop's}
+        There is two emergency stops on the robot. One on the teach pendant. The warning from this one can be cleared from the teach pendant. The other one is on the right side og the robot cell, and the warning can only be cleared from the reset button on the cabinet.
+        \subsubsection{Light grid}
+        The light grid, is the yellow bars on each side of th robot cell. They are rated SIL 3, and are approved for safety use. 
+        
+        \paragraph{Bluetooth}
+        The light grid is equipped with Bluetooth monitoring and configuration, and the software to be used are SD manager 2 from Omron.
+        
+        \paragraph{Muting}
+        The light grid is equipped with muting, this makes it possible to turn off the light grid with other equipent. This option is not configured at the moment, but it is accessable. Have a look in the Omron F3SG-RA user manual. 
+        \\\\
+        \textbf{\textcolor{red}{Important:}} To maintain the safety of the system, proper care has to be taken. 
+        \begin{itemize}
+            \item  Do never use non-safety equipment to control the muting.
+            \item Never give humans a physical way to mute the light grid(like a button).
+            \item Do a risk-assessment before muting is an option, always. 
+            \item Consider other options before muting is chosen.
+            \item Consider using extra safety equipment to maintain a high level of safety.
+            \item The Kuka manipulator should never be in motion when light grid is muted.
+            \item You can use the available safety outputs to mute the light grid.
+        \end{itemize}
+
+        My recommendation is that you program the Safety PLC in TwinCAT3 to send a Safe Operational stop signal to the controller(Ref: KR\_C4\_EtherCAT\_Bridge\_FSoE\_Master\_master\_en.pdf document), before the light grid is muted, and release the Safe Operational stop signal after the muting is turned off. In this way, the manipulator can not move while the muting is enabled. 
+        
 \section{Getting started}
     \subsection{Get everything connected}
     \subsection{Powering up the system}
