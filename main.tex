@@ -7,9 +7,9 @@
 \usepackage{amsmath}
 \usepackage{textcomp}
 
-\titlepic{\includegraphics[width=\textwidth]{Pictures/robotlab1_final.png}}
+\titlepic{\includegraphics[width=\textwidth]{Pictures/robotlab1_croped.png}}
 \title{Getting started with Kuka Robot Cell}
-\author{Espen Teigen }
+\author{Espen Teigen}
 \date{March 2019}
 
 
@@ -302,7 +302,17 @@
     \subsection{Calibration of robot}
         To give the highest position repeatably, you have to do something Kuka calls "mastering". Mastering is done with the aid of a Micro electronic mastering device(MEMD). It should always be located in the cabinet on the robot lab(it is quite expensive, so be careful with it). 
         
-        \textbf{bilde her}
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.3]{"Pictures/memd_suitcase".jpg}
+            \caption{The MEMD suitcase}
+        \end{figure}
+        
+        \begin{figure}[!h]
+            \centering
+            \includegraphics[scale=0.5]{"Pictures/memd".jpg}
+            \caption{The MEMD}
+        \end{figure}
         
         There is no need to do mastering often, 1-2 times a year should suffice, exceptions are if the manipulator has crashes or if the robot cell has been moved, and you need the high precision. 
         \\\\
@@ -317,7 +327,7 @@
             \item That there are no loose parts that can fall off during operation.
             \item Listen for sounds that should not be there.
             \item Make sure the people using the robot is properly trained.
-            \item That there is no cat's inside the control cabinet(those pesky critters can get in anywhere)
+            \item That there is no cat's inside the control cabinet(those pesky critters can get in anywhere. Reference "On the rheology of cats. M.A. Fardin, Rheology Bulletin, 83(2) July 2014")
             \item When finished, turn off robot controller from the teach pendant, and not the power button.
         \end{itemize}
         
@@ -326,7 +336,7 @@
             \item Check that there is no damage to the wires and hoses.
             \item Check that the bolts on the base of the manipulator is tight. 
             \item Check that the bolts on the light grid is tight.
-            \item Check that the bolts on the plexi glass is tight.
+            \item Check that the bolts on the plexi-glass is tight.
             \item Look at my masterpiece in awe.
         \end{itemize}
         
@@ -341,6 +351,9 @@
         
         \subsubsection{Emergency stop's}
         There is two emergency stops on the robot. One on the teach pendant. The warning from this one can be cleared from the teach pendant. The other one is on the right side og the robot cell, and the warning can only be cleared from the reset button on the cabinet.
+        
+        \newpage
+        
         \subsubsection{Light grid}
         The light grid, is the yellow bars on each side of th robot cell. They are rated SIL 3, and are approved for safety use. 
         
@@ -361,7 +374,11 @@
             \item You can use the available safety outputs to mute the light grid.
         \end{itemize}
 
-        My recommendation is that you program the Safety PLC in TwinCAT3 to send a Safe Operational stop signal to the controller(Ref: KR\_C4\_EtherCAT\_Bridge\_FSoE\_Master\_master\_en.pdf document), before the light grid is muted, and release the Safe Operational stop signal after the muting is turned off. In this way, the manipulator can not move while the muting is enabled. 
+        My recommendation is that you program the Safety PLC in TwinCAT3 to send a \textbf{Safe Operational stop signal} to the controller
+        \\
+        (Refer to KR\_C4\_EtherCAT\_Bridge\_FSoE\_Master\_master\_en.pdf document; page 19), before the light grid is muted, and release the Safe Operational stop signal after the muting is turned off. In this way, the manipulator can not move while the muting is enabled. 
+        \\\\
+        \textbf{\textcolor{red}{In a chain of safety-equipment, there should never be non-safety equipment, that includes relays, IO's and switches}}
         
 \section{Getting started}
     \subsection{Get everything connected}
