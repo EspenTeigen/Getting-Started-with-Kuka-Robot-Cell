@@ -304,6 +304,7 @@
     \subsection{Calibration of robot}
         To give the highest position repeatably, you have to do something Kuka calls "mastering". Mastering is done with the aid of a Micro electronic mastering device(MEMD). It should always be located in the cabinet on the robot lab(it is quite expensive, so be careful with it). 
         
+        
         \begin{figure}[!h]
             \centering
             \includegraphics[scale=0.3]{"Pictures/memd_suitcase".jpg}
@@ -316,7 +317,9 @@
             \caption{The MEMD}
         \end{figure}
         
-        There is no need to do mastering often, 1-2 times a year should suffice, exceptions are if the manipulator has crashes or if the robot cell has been moved, and you need the high precision. 
+        There is no need to do mastering often, 1-2 times a year should suffice, exceptions are if the manipulator has crashes or if the robot cell has been moved, and you need the high precision. Also, if you are working with high loads(1-2)Kg, mastering has to be done. You have something called EMD mastering with load correction. 
+        \\\\
+        Important: If mastering should be done, previous mastering has to be deleted first. 
         \\\\
         You can find videos about mastering on YouTube, so i will not use to much time on it. It is easy to do. 
         
@@ -391,7 +394,7 @@
         \item Power to cabinet.
         \item Power to robot controller.
         \item power and data cable from controller to manipulator.
-        \item Data cables: PC, X65, X66 and X67.1 is connected to appropriate places, PC can be exluded if no computer is being used.
+        \item Data cables: PC, X65, X66 and X67.1 is connected to appropriate places, PC can be excluded if no computer is being used.
         \item smartPad is connected to controller
         \item If computer is being used: IP-address and subnet mask is in correct range.
     \end{itemize}
@@ -404,10 +407,10 @@
         \item Push reset button.
         \item Push and release emergency stop button on robot cell.
         \item Push reset button again.
-        \item If communication error KRC4 primary error sustains, jump to(not literary) \textbf{Problems resetting communication error warning on smartPad} 
+        \item If communication error KRC4 primary error sustains, jump to(not literary) \textbf{Problems resetting communication error warning on SmartPad} 
     \end{enumerate}
-    \subsubsection{Problems resetting communication error warning on smartPad}
-    At the time of writing this, we do not have a license for some of the library's used on the TwinCat 3 system. But Beckhoff has a one week free license-trial, and that is what i have been using. To renew the license's, open the TwinCAT project kuka\_robot\_project\_twinsafe\_modbus.sln(you can find this on my github page). If changes has been done on the project after my departure, use that project instead. 
+    \subsubsection{Problems resetting communication error warning on SmartPad}
+    At the time of writing this, we do not have a license for some of the library's used on the TwinCat 3 system. But Beckhoff has a one week free license-trial, and that is what I've been using. To renew the license's, open the TwinCAT project kuka\_robot\_project\_twinsafe\_modbus.sln(you can find this on my github page). If changes has been done on the project after my departure, use that project instead. 
     \\\\\
     \begin{figure}[!h]
         \centering
@@ -418,4 +421,29 @@
     \\\\
     After the download is done, push the reset-button on the cabinet. It should hopefully remove the error, and all you have to do is acknowledge that the error has been there.  
 
+\newpage
+
+\section{\textbf{\textcolor{red}{IMPORTANT, READ THIS!}}}
+On the SmartPad, you have a menu under $$Start-up->Network Configuration->Internal subnets$$. 
+\textbf{\textcolor{red}{Never change anything here. This are the buses used between components in the controler. Changes here will brick the controller, and you need to order a recovery stick from Kuka to re-install everything. I repeat, NEVER DO CHANGES HERE}}. 
+\\\\
+For some reason, this menu is easy accessible for everyone logged in as expert or higher.
+
+\newpage 
+
+\section{Wiring diagrams}
+
+    \subsection{Robotiq FT-300}
+    
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[width=\textwidth]{"Pictures/FT-300-Wiring".png}
+        \caption{Figure is a modified version of schematic from Kuka KR AGILUS sixx KR 3 R540 operating instructions, version BA KR AGILUS sixx MSR V1 page 48}
+        \label{fig:my_label}
+    \end{figure}
+    
+    \newpage
+    
+    \subsection{Beckhoff CX9020}
+        
 \end{document}
